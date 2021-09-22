@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import {
   TextField,
   Typography,
@@ -9,6 +9,8 @@ import {
   Select,
   MenuItem,
 } from "@material-ui/core"
+import { ExpenseTrackerContext } from "../../../context/context"
+import { v4 as uuidv4 } from "uuid"
 
 import useStyles from "./styles.js"
 
@@ -21,6 +23,17 @@ const initialState = {
 
 const Form = () => {
   const [formData, setFormData] = useState(initialState)
+  const { addTransaction } = useContext(ExpenseTrackerContext)
+
+  const createTransaction = () => {
+    const transaction = {
+      ...formData,
+      amount: Number(formData.amount),
+      id: uuidv4(),
+    }
+    addTransaction(transaction)
+    setFormData(initialState)
+  }
 
   const classes = useStyles()
 
@@ -58,14 +71,27 @@ const Form = () => {
         </FormControl>
       </Grid>
       <Grid item xs={6}>
-        <TextField type="number" label="Amount" fullWidth />
-        <TextField type="date" label="Date" fullWidth />
+        <TextField
+          value={formData.amount}
+          onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+          type="number"
+          label="Amount"
+          fullWidth
+        />
+        <TextField
+          value={formData.date}
+          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          type="date"
+          label="Date"
+          fullWidth
+        />
       </Grid>
       <Button
         className={classes.button}
         variant="outlined"
         color=" primary"
         fullWidth
+        onClick={createTransaction}
       >
         Create
       </Button>
