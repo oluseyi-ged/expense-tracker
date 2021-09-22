@@ -12,6 +12,7 @@ import {
 import { ExpenseTrackerContext } from "../../../context/context"
 import { v4 as uuidv4 } from "uuid"
 
+import formatDate from "../../../utils/formatDate"
 import useStyles from "./styles.js"
 import {
   incomeCategories,
@@ -22,7 +23,7 @@ const initialState = {
   amount: "",
   category: "",
   type: "Income",
-  date: new Date(),
+  date: formatDate(new Date()),
 }
 
 const Form = () => {
@@ -90,7 +91,9 @@ const Form = () => {
         />
         <TextField
           value={formData.date}
-          onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+          onChange={(e) =>
+            setFormData({ ...formData, date: formatDate(e.target.value) })
+          }
           type="date"
           label="Date"
           fullWidth
