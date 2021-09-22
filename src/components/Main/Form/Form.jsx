@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
   TextField,
   Typography,
@@ -12,7 +12,16 @@ import {
 
 import useStyles from "./styles.js"
 
+const initialState = {
+  amount: "",
+  category: "",
+  type: "Income",
+  date: new Date(),
+}
+
 const Form = () => {
+  const [formData, setFormData] = useState(initialState)
+
   const classes = useStyles()
 
   return (
@@ -25,7 +34,10 @@ const Form = () => {
       <Grid item xs={6}>
         <FormControl fullWidth>
           <InputLabel>Type</InputLabel>
-          <Select>
+          <Select
+            value={formData.type}
+            onChange={(e) => setFormData({ ...formData, type: e.target.value })}
+          >
             <MenuItem value="Income">Income</MenuItem>
             <MenuItem value="Expense">Expense</MenuItem>
           </Select>
@@ -34,7 +46,12 @@ const Form = () => {
       <Grid item xs={6}>
         <FormControl fullWidth>
           <InputLabel>Category</InputLabel>
-          <Select>
+          <Select
+            value={formData.category}
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
+          >
             <MenuItem value="Business">Business</MenuItem>
             <MenuItem value="Salary">Salary</MenuItem>
           </Select>
