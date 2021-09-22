@@ -12,6 +12,7 @@ import List from "./List/List"
 import { ExpenseTrackerContext } from "../../context/context"
 
 import useStyles from "./styles.js"
+import InfoCard from "../infoCard"
 
 const Main = () => {
   const classes = useStyles()
@@ -28,10 +29,10 @@ const Main = () => {
           variant="subtitle1"
           style={{ line: "1.5em", marginTop: "20px" }}
         >
-          {/* Inforcard... */}
-          Try saying: add income for $1100 in category salary for monday...
+          <InfoCard />
+          {/* Try saying: add income for $1100 in category salary for monday... */}
         </Typography>
-        <Divider />
+        <Divider className={classes.divider} />
         <Form />
       </CardContent>
       <CardContent className="classes.cardContent">
